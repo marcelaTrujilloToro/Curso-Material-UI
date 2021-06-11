@@ -9,31 +9,42 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import MenuIcon from "@material-ui/icons/Menu";
+import { NONAME } from "dns";
 
 const useStyles = makeStyles((theme) => ({
     // hace un margin bottom
-  offset: theme.mixins.toolbar,
+
   menuButton: {
     // por defecto es 8 al poner 2 se multiplica cando un margin de 16
     marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
   },
 
   // pone el titulo de todo el espacio disponible, asi que manda el login al final
   title:{
       flexGrow:1
-  }
+  },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${240}px)`,
+        marginLeft: 240,
+    },
+},
 }));
 
-export const NavBar = () => {
+export const NavBar = (props: any) => {
   const classes = useStyles();
   return (
-    <div>
-      <AppBar position="sticky" color="primary">
+    
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
           <IconButton
-            aria-label="menu"
             color="inherit"
+            aria-label="menu"
             className={classes.menuButton}
+            onClick={() => props.accionAbrir()}
           >
             <MenuIcon />
           </IconButton>
@@ -43,8 +54,6 @@ export const NavBar = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <div className={classes.offset}></div>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, iste odio tempore repellendus aliquam quod.</p>
-    </div>
+      
   );
 };
